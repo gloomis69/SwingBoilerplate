@@ -6,11 +6,12 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 import views.Body_Panel;
 import views.Menu_Panel;
+import views.Order_Panel;
 import views.Title_Panel;
 
 
 public class SwingBoilerplate {
-
+    public static Order_Panel order_panel = new Order_Panel();
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -37,6 +38,7 @@ public class SwingBoilerplate {
         Body_Panel bodyPnl = new Body_Panel();
         frame.add(bodyPnl, BorderLayout.CENTER);       
         
+        frame.add(order_panel, BorderLayout.SOUTH);
         //3. Display the frame
         frame.setVisible(true);
         

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 //A class that defines a hamburger and it's toppings
 //Provides methods for manipulating toppings, calculating the price, and getting the description
-public class Hamburger {
+public class Hamburger extends Food {
     //Static final variables make it easy to control data that may change once in a while in many places in the program
     public static final String[] AVAILABLE_TOPPINGS = {"Pickles", "Onions", "Lettuce", "Tomato", "Cheese", "Ketchup", "Mustard", "Mayonnaise"};
     private static final double BASE_COST = 2.99;
@@ -48,6 +48,7 @@ public class Hamburger {
         return false;
     }
 
+    @Override
     public double getPrice(){
         double cost = BASE_COST;
         for(String topping: toppings){
@@ -58,15 +59,6 @@ public class Hamburger {
             }           
         }
         return cost;
-    }
-    
-    public double getTax(double price){
-        return price * 0.08;
-    }
-    
-    public double getPriceWithTax(){
-        double price = getPrice();
-        return (price+getTax(price));
     }
     
     @Override

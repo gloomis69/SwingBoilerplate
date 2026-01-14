@@ -1,6 +1,7 @@
 package views;
 
 import controllers.Hamburger_Controller;
+import controllers.Hotdog_Controller;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -19,10 +20,8 @@ public class Body_Panel extends JPanel{
         //Create a controller for each, then get the view from it that it will control
         //The view is a type of JPanel
         
-        JPanel hotDogPanel = new JPanel();
-        hotDogPanel.setBackground(Color.YELLOW);
-        JLabel lblHotDog = new JLabel("Hot Dog Panel is showing");
-        hotDogPanel.add(lblHotDog);
+        Hotdog_Controller hotdogController = new Hotdog_Controller();
+        Hotdog_Panel hotdog_Panel = hotdogController.getView();
         
         Hamburger_Controller hamburgerController = new Hamburger_Controller();
         Hamburger_Panel hamburgerPanel = hamburgerController.getView();
@@ -37,7 +36,7 @@ public class Body_Panel extends JPanel{
         JLabel lblDrinks = new JLabel("Drinks Panel is showing");
         drinksPanel.add(lblDrinks);
         
-        add(hotDogPanel, "hot dogs");
+        add(hotdog_Panel, "hot dogs");
         add(hamburgerPanel, "hamburgers");
         add(dessertPanel, "desserts");
         add(drinksPanel, "drinks");

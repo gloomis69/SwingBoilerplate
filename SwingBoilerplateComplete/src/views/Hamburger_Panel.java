@@ -36,8 +36,8 @@ public final class Hamburger_Panel extends JPanel {
         add(createTitlePanel());
         add(createNewOrderPanel(controller));
         add(createFormPanel(controller));
-        add(createOrdersPlacedPanel());
-        add(Box.createVerticalGlue());
+        //add(createOrdersPlacedPanel());
+        //add(Box.createVerticalGlue());
     }
 
     private JPanel createTitlePanel() {
@@ -78,7 +78,7 @@ public final class Hamburger_Panel extends JPanel {
         formPanel.add(createSubtitle());
         formPanel.add(createToppingsPanel(controller));
         formPanel.add(createButtonPanel(controller));
-        formPanel.add(Box.createVerticalGlue());
+        //formPanel.add(Box.createVerticalGlue());
 
         return formPanel;
     }

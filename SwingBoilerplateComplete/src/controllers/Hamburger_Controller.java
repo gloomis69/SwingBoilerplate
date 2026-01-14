@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import models.Hamburger;
+import swingboilerplate.SwingBoilerplate;
 import views.Hamburger_Panel;
 
 //A class that will track a list of hamburger orders
@@ -52,7 +53,7 @@ public class Hamburger_Controller {
             double tax = currentOrder.getTax(cost);
             double total = currentOrder.getPriceWithTax();
             isResetting = true;
-            view.addOrder(orderName, currentOrder.toString(), cost, tax, total);
+            SwingBoilerplate.order_panel.addOrder(orderName, currentOrder.toString(), cost, tax, total);
             currentOrder = null;
             view.reset();
             isResetting = false;
