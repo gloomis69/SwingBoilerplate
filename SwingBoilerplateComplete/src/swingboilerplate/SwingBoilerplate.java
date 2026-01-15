@@ -4,6 +4,7 @@ package swingboilerplate;
 import controllers.Body_Controller;
 import java.awt.BorderLayout;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import views.Body_Panel;
 import views.Menu_Panel;
 import views.Order_Panel;
@@ -34,6 +35,7 @@ public class SwingBoilerplate {
         Body_Panel bodyPnl = new Body_Panel();
         frame.add(bodyPnl, BorderLayout.CENTER);       
         
+        order_panel.setBorder(new EmptyBorder(5, 20, 20, 20));
         frame.add(order_panel, BorderLayout.SOUTH);
         //3. Display the frame
         frame.setVisible(true);

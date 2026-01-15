@@ -63,7 +63,7 @@ public class Hamburger extends Food {
     
     @Override
     public String toString() {
-        String output = "A hamburger ";
+        String output = "Hamburger ";
         if (!toppings.isEmpty()) {
             output += "with ";
         }

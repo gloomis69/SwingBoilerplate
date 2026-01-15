@@ -62,7 +62,7 @@ public class Drink_Panel extends JPanel {
     } 
    
     private JPanel makeTypePanel() {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ButtonGroup typeGroup = new ButtonGroup();
         int index = 0;
         for(Drink.Type type : Drink.Type.values()){
@@ -77,7 +77,7 @@ public class Drink_Panel extends JPanel {
     }
 
     private JPanel makeSizePanel() {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ButtonGroup sizeGroup = new ButtonGroup();
         int index = 0;
         for(Drink.Size size : Drink.Size.values()){

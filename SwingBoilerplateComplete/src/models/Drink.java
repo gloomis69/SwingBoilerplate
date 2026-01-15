@@ -90,6 +90,6 @@ public class Drink extends Food{
     
     @Override
     public String toString() {
-        return "A "+size.getDescription()+" "+type.getDescription();        
+        return size.getDescription()+" "+type.getDescription();        
     }
 }

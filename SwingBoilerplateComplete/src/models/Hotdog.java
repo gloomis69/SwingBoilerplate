@@ -67,7 +67,7 @@ public class Hotdog {
     
     @Override
     public String toString() {
-        String output = "A hotdog ";
+        String output = "Hotdog ";
         if (!toppings.isEmpty()) {
             output += "with ";
         }
