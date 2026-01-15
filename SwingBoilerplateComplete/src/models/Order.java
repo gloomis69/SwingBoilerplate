@@ -4,7 +4,7 @@ public class Order {
     private static int orderCount = 0;
     private final int orderNumber;
     private final String name;
-    private Food food;
+    private final Food food;
 
     public Order(String name, Food food){
         orderCount++;

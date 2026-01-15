@@ -1,6 +1,6 @@
 package models;
 
-abstract  class Food {
+public abstract class Food {
     public abstract double getPrice();
     
     public double getTax(double price){

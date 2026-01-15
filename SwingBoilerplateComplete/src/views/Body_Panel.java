@@ -1,5 +1,6 @@
 package views;
 
+import controllers.Drink_Controller;
 import controllers.Hamburger_Controller;
 import controllers.Hotdog_Controller;
 import java.awt.CardLayout;
@@ -31,10 +32,8 @@ public class Body_Panel extends JPanel{
         JLabel lblDessert = new JLabel("Dessert Panel is showing");
         dessertPanel.add(lblDessert);
         
-        JPanel drinksPanel = new JPanel();
-        drinksPanel.setBackground(Color.BLUE);
-        JLabel lblDrinks = new JLabel("Drinks Panel is showing");
-        drinksPanel.add(lblDrinks);
+        Drink_Controller drinkController = new Drink_Controller();
+        Drink_Panel drinksPanel = drinkController.getView();
         
         add(hotdog_Panel, "hot dogs");
         add(hamburgerPanel, "hamburgers");

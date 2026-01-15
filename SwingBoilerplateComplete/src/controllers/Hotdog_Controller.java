@@ -6,6 +6,7 @@ import javax.swing.JCheckBox;
 import models.Hotdog;
 import swingboilerplate.SwingBoilerplate;
 import views.Hotdog_Panel;
+import views.Title_Panel;
 
 //A class that will track a list of hotdog orders
 public class Hotdog_Controller {
@@ -18,9 +19,9 @@ public class Hotdog_Controller {
     public Hotdog_Controller() {
         hotdogOrders = new ArrayList<>();
         view = new Hotdog_Panel();
+        currentOrder = new Hotdog();
 
         // set Listeners
-        view.btnStartListener(e -> newOrderListener());
         view.btnSubmitListener(e -> submitListenter());
         view.btnCancelListener(e -> cancelListenter());
         view.cbxToppingListener(e-> toppingListener(e));
@@ -30,10 +31,7 @@ public class Hotdog_Controller {
         return view;
     }
 
-    public void newOrderListener() {
-        currentOrder = new Hotdog();
-        view.showOrderForm();
-    }
+    
 
     public void toppingListener(ActionEvent e) {
         if (!isResetting) {
@@ -48,20 +46,20 @@ public class Hotdog_Controller {
     }
 
     public void submitListenter() {
-        String orderName = view.getOrderName();
+        String orderName = Title_Panel.getOrderName();
         hotdogOrders.add(currentOrder);
         double cost = currentOrder.getPrice();
         double tax = currentOrder.getTax(cost);
         double total = currentOrder.getPriceWithTax();
         isResetting = true;
         SwingBoilerplate.order_panel.addOrder(orderName, currentOrder.toString(), cost, tax, total);
-        currentOrder = null;
+        currentOrder = new Hotdog();
         view.reset();
         isResetting = false;
     }
 
     public void cancelListenter() {
-        currentOrder = null;
+        currentOrder = new Hotdog();
         isResetting = true;
         view.reset();
         isResetting = false;

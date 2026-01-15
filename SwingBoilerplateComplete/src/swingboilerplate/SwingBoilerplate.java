@@ -14,11 +14,7 @@ public class SwingBoilerplate {
     public static Order_Panel order_panel = new Order_Panel();
     
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        SwingUtilities.invokeLater(SwingBoilerplate::createAndShowGUI);
     }
     
     public static void createAndShowGUI(){
@@ -29,7 +25,7 @@ public class SwingBoilerplate {
         frame.setLocationRelativeTo(null); //center the frame on the monitor when it opens
         
         //2. Add panels to the frame
-        frame.add(new Title_Panel("My Awesome App!"), BorderLayout.NORTH);
+        frame.add(new Title_Panel("Food Ordering Wizard"), BorderLayout.NORTH);
         
         String[] menu = {"hot dogs", "hamburgers", "desserts", "drinks"};
         Menu_Panel menuPnl = new Menu_Panel(menu);
@@ -42,6 +38,7 @@ public class SwingBoilerplate {
         //3. Display the frame
         frame.setVisible(true);
         
-        new Body_Controller(bodyPnl, menuPnl);
+        Body_Controller controller = new Body_Controller();
+        controller.attach(bodyPnl, menuPnl);
     }
 }

@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -11,13 +12,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 
 public class Order_Panel extends JPanel {
+    private static double grandSubtotal = 0;
+    private static double grandtaxes = 0;
+    private static double grandtotal = 0;
 
-    private JPanel ordersPlaced= new JPanel();
-    private double subtotal = 0;
-    private double taxes = 0;
-    private JLabel lblSubtotal = new JLabel("Sub-total: ");
-    private JLabel lblTaxes = new JLabel("Tax: ");
-    private JLabel lblTotal = new JLabel("Total: ");
+    private final JPanel ordersPlaced= new JPanel();
+    private final JLabel lblSubtotal = new JLabel("Sub-total: ");
+    private final JLabel lblTaxes = new JLabel("Tax: ");
+    private final JLabel lblTotal = new JLabel("Total: ");
+
     public Order_Panel(){
         super(new BorderLayout());
         add(createOrdersPlacedPanel(), BorderLayout.CENTER);
@@ -26,7 +29,13 @@ public class Order_Panel extends JPanel {
         totals_panel.add(lblTaxes, BorderLayout.CENTER);
         totals_panel.add(lblTotal, BorderLayout.SOUTH);
         add(totals_panel, BorderLayout.SOUTH);
-        
+        setPreferredSize(new Dimension(400, 300));
+    }
+
+    private void displayGrandTotal(){
+        lblSubtotal.setText(String.format("Subtotal: $%.2f", grandSubtotal));
+        lblTaxes.setText(String.format("Subtotal: $%.2f", grandtaxes));
+        lblTotal.setText(String.format("Subtotal: $%.2f", grandtotal));
     }
 
     private JScrollPane createOrdersPlacedPanel() {
@@ -48,7 +57,6 @@ public class Order_Panel extends JPanel {
         // Wrap in scroll pane
         JScrollPane scrollPane = new JScrollPane(ordersPlaced);
         scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-
         // Prevent horizontal scrolling
         scrollPane.setHorizontalScrollBarPolicy(
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
@@ -58,6 +66,12 @@ public class Order_Panel extends JPanel {
     }
 
     public void addOrder(String name, String description, double cost, double tax, double total) {
+        //update grand totals
+        grandSubtotal+=cost;
+        grandtaxes+=tax;
+        grandtotal+=total;
+        displayGrandTotal();
+        
         // Order container
         JPanel orderPanel = new JPanel();
         orderPanel.setLayout(new BoxLayout(orderPanel, BoxLayout.Y_AXIS));

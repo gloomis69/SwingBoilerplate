@@ -14,18 +14,14 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import models.Hamburger;
 
 public final class Hamburger_Panel extends JPanel {
 
-    private JTextField nameField;
     private JCheckBox[] toppingsCbxs;
     private JPanel formPanel;
-    private JPanel newOrderPnl;
     private JPanel ordersPlaced;
 
     public Hamburger_Panel(Hamburger_Controller controller) {
@@ -34,10 +30,7 @@ public final class Hamburger_Panel extends JPanel {
         setBackground(Color.WHITE);
 
         add(createTitlePanel());
-        add(createNewOrderPanel(controller));
         add(createFormPanel(controller));
-        //add(createOrdersPlacedPanel());
-        //add(Box.createVerticalGlue());
     }
 
     private JPanel createTitlePanel() {
@@ -54,50 +47,21 @@ public final class Hamburger_Panel extends JPanel {
 
         return titlePanel;
     }
-
-    private JPanel createNewOrderPanel(Hamburger_Controller controller) {
-        newOrderPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        JButton btnStart = new JButton("New Order");
-        controller.newOrderListener(btnStart);
-
-        newOrderPnl.add(btnStart);
-        newOrderPnl.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        return newOrderPnl;
-    }
-
+    
     private JPanel createFormPanel(Hamburger_Controller controller) {
         formPanel = new JPanel();
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
         formPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        formPanel.setBorder(new EmptyBorder(30, 15, 0, 10));
-        formPanel.setVisible(false);
-
-        formPanel.add(createNameRow());
+        formPanel.setBorder(new EmptyBorder(0, 15, 0, 10));
+                
         formPanel.add(createSubtitle());
         formPanel.add(createToppingsPanel(controller));
         formPanel.add(createButtonPanel(controller));
-        //formPanel.add(Box.createVerticalGlue());
 
         return formPanel;
     }
 
-    private JPanel createNameRow() {
-        JPanel nameRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel nameLabel = new JLabel("Name:");
-        nameField = new JTextField(20);
-
-        nameRow.add(nameLabel);
-        nameRow.add(nameField);
-
-        Dimension pref = nameRow.getPreferredSize();
-        nameRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
-        nameRow.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        return nameRow;
-    }
+    
 
     private JLabel createSubtitle() {
         JLabel subTitle = new JLabel("Place your order: ", JLabel.LEFT);
@@ -142,37 +106,9 @@ public final class Hamburger_Panel extends JPanel {
         return buttonPnl;
     }
     
-    private JScrollPane createOrdersPlacedPanel() {
-        ordersPlaced = new JPanel();
-        ordersPlaced.setLayout(new BoxLayout(ordersPlaced, BoxLayout.Y_AXIS));
-        ordersPlaced.setAlignmentX(Component.LEFT_ALIGNMENT);
+   
 
-        // Title
-        JLabel title = new JLabel("Orders Placed");
-        title.setFont(title.getFont().deriveFont(Font.BOLD, 16f));
-        title.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        ordersPlaced.add(title);
-        ordersPlaced.add(Box.createVerticalStrut(10));
-
-        // This glue ensures extra space expands downward
-        ordersPlaced.add(Box.createVerticalGlue());
-
-        // Wrap in scroll pane
-        JScrollPane scrollPane = new JScrollPane(ordersPlaced);
-        scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // Prevent horizontal scrolling
-        scrollPane.setHorizontalScrollBarPolicy(
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
-        );
-
-        return scrollPane;
-    }
-
-    public String getOrderName() {
-        return nameField.getText();
-    }
+    
 
     public ArrayList<String> getSelectedToppings() {
         ArrayList<String> toppings = new ArrayList<>();
@@ -184,15 +120,9 @@ public final class Hamburger_Panel extends JPanel {
         return toppings;
     }
 
-    public void showOrderForm() {
-        newOrderPnl.setVisible(false);
-        formPanel.setVisible(true);
-    }
+   
 
-    public void reset() {
-        newOrderPnl.setVisible(true);
-        formPanel.setVisible(false);
-        nameField.setText("");
+    public void reset() {        
         for (JCheckBox bx : toppingsCbxs) {
             bx.setSelected(false);
         }

@@ -14,20 +14,15 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import models.Hotdog;
 
 public final class Hotdog_Panel extends JPanel {
 
-    private JTextField nameField;
     private JCheckBox[] toppingsCbxs;
     private JPanel formPanel;
-    private JPanel newOrderPnl;
     private JPanel ordersPlaced;
-    private JButton btnStart;
     private JButton btnSubmit;
     private JButton btnCancel;
 
@@ -37,10 +32,7 @@ public final class Hotdog_Panel extends JPanel {
         setBackground(Color.WHITE);
 
         add(createTitlePanel());
-        add(createNewOrderPanel());
         add(createFormPanel());
-        //add(createOrdersPlacedPanel());
-        //add(Box.createVerticalGlue());
     }
 
     private JPanel createTitlePanel() {
@@ -57,7 +49,7 @@ public final class Hotdog_Panel extends JPanel {
 
         return titlePanel;
     }
-
+/*
     private JPanel createNewOrderPanel() {
         newOrderPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -67,15 +59,14 @@ public final class Hotdog_Panel extends JPanel {
 
         return newOrderPnl;
     }
-
+*/
     private JPanel createFormPanel() {
         formPanel = new JPanel();
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
         formPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        formPanel.setBorder(new EmptyBorder(30, 15, 0, 10));
-        formPanel.setVisible(false);
+        formPanel.setBorder(new EmptyBorder(0, 15, 0, 10));
+        
 
-        formPanel.add(createNameRow());
         formPanel.add(createSubtitle());
         formPanel.add(createToppingsPanel());
         formPanel.add(createButtonPanel());
@@ -84,21 +75,6 @@ public final class Hotdog_Panel extends JPanel {
         return formPanel;
     }
 
-    private JPanel createNameRow() {
-        JPanel nameRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel nameLabel = new JLabel("Name:");
-        nameField = new JTextField(20);
-
-        nameRow.add(nameLabel);
-        nameRow.add(nameField);
-
-        Dimension pref = nameRow.getPreferredSize();
-        nameRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
-        nameRow.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        return nameRow;
-    }
 
     private JLabel createSubtitle() {
         JLabel subTitle = new JLabel("Place your order: ", JLabel.LEFT);
@@ -139,7 +115,7 @@ public final class Hotdog_Panel extends JPanel {
         return buttonPnl;
     }
     
-    private JScrollPane createOrdersPlacedPanel() {
+   /* private JScrollPane createOrdersPlacedPanel() {
         ordersPlaced = new JPanel();
         ordersPlaced.setLayout(new BoxLayout(ordersPlaced, BoxLayout.Y_AXIS));
         ordersPlaced.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -165,11 +141,9 @@ public final class Hotdog_Panel extends JPanel {
         );
 
         return scrollPane;
-    }
+    }**/
 
-    public String getOrderName() {
-        return nameField.getText();
-    }
+    
 
     public ArrayList<String> getSelectedToppings() {
         ArrayList<String> toppings = new ArrayList<>();
@@ -181,15 +155,9 @@ public final class Hotdog_Panel extends JPanel {
         return toppings;
     }
 
-    public void showOrderForm() {
-        newOrderPnl.setVisible(false);
-        formPanel.setVisible(true);
-    }
+    
 
     public void reset() {
-        newOrderPnl.setVisible(true);
-        formPanel.setVisible(false);
-        nameField.setText("");
         for (JCheckBox bx : toppingsCbxs) {
             bx.setSelected(false);
         }
@@ -244,9 +212,9 @@ public final class Hotdog_Panel extends JPanel {
     }
 
     //register listeners
-    public void btnStartListener(ActionListener listener) {
+    /*public void btnStartListener(ActionListener listener) {
         btnStart.addActionListener(listener);
-    }
+    }*/
 
     public void btnSubmitListener(ActionListener listener) {
         btnSubmit.addActionListener(listener);
