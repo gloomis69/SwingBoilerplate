@@ -1,5 +1,6 @@
 package views;
 
+import controllers.Dessert_Controller;
 import controllers.Drink_Controller;
 import controllers.Hamburger_Controller;
 import controllers.Hotdog_Controller;
@@ -27,10 +28,8 @@ public class Body_Panel extends JPanel{
         Hamburger_Controller hamburgerController = new Hamburger_Controller();
         Hamburger_Panel hamburgerPanel = hamburgerController.getView();
                 
-        JPanel dessertPanel = new JPanel();
-        dessertPanel.setBackground(Color.decode("#3D1C02"));
-        JLabel lblDessert = new JLabel("Dessert Panel is showing");
-        dessertPanel.add(lblDessert);
+        Dessert_Controller dessertController = new Dessert_Controller();
+        Dessert_Panel dessertPanel = dessertController.getView();
         
         Drink_Controller drinkController = new Drink_Controller();
         Drink_Panel drinksPanel = drinkController.getView();
