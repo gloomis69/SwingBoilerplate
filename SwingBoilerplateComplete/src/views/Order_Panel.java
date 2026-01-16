@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -22,7 +24,6 @@ public class Order_Panel extends JPanel {
     private final JLabel lblSubtotal = new JLabel("Sub-total: ", JLabel.RIGHT);
     private final JLabel lblTaxes = new JLabel("Tax: ", JLabel.RIGHT);
     private final JLabel lblTotal = new JLabel("Total: ", JLabel.RIGHT);
-    private final Component glue = Box.createVerticalGlue();
     private JLabel title;
     private JPanel orderContainer;
 
@@ -42,10 +43,25 @@ public class Order_Panel extends JPanel {
         add(pnl, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(400, 300));
         displayGrandTotal();
+        Title_Panel.nameListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (Title_Panel.getOrderName().isEmpty()) {
+                    title.setText("Orders");
+                } else {
+                    title.setText("Orders for " + Title_Panel.getOrderName());
+                }
+            }
+        });
     }
 
     private void displayGrandTotal() {
-        title.setText("Orders for " + Title_Panel.getOrderName());
+        if (Title_Panel.getOrderName().isEmpty()) {
+            title.setText("Orders");
+        } else {
+            title.setText("Orders for " + Title_Panel.getOrderName());
+        }
+
         lblSubtotal.setText(String.format("Subtotal: $%.2f", grandSubtotal));
         lblTaxes.setText(String.format("Tax: $%.2f", grandtaxes));
         lblTotal.setText(String.format("Total: $%.2f", grandtotal));
@@ -57,9 +73,9 @@ public class Order_Panel extends JPanel {
         ordersPlaced.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Title
-        title = new JLabel("Orders for ");
+        title = new JLabel("Orders");
         title.setFont(title.getFont().deriveFont(Font.BOLD, 16f));
-        //title.setAlignmentX(Component.LEFT_ALIGNMENT);
+        // title.setAlignmentX(Component.LEFT_ALIGNMENT);
         title.setBorder(new EmptyBorder(5, 5, 5, 5));
         ordersPlaced.add(title);
         ordersPlaced.add(Box.createVerticalStrut(10));
@@ -93,15 +109,15 @@ public class Order_Panel extends JPanel {
 
         lblDesc.setAlignmentY(Component.TOP_ALIGNMENT);
         lblPrice.setAlignmentY(Component.TOP_ALIGNMENT);
-        
+
         line.add(lblDesc);
         line.add(Box.createHorizontalGlue());
         line.add(lblPrice);
 
         line.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
-        //line.setMaximumSize(new Dimension(RECEIPT_WIDTH, Integer.MAX_VALUE));
-        //line.setPreferredSize(new Dimension(RECEIPT_WIDTH, 35));
+
+        // line.setMaximumSize(new Dimension(RECEIPT_WIDTH, Integer.MAX_VALUE));
+        // line.setPreferredSize(new Dimension(RECEIPT_WIDTH, 35));
         line.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         orderContainer.add(line);

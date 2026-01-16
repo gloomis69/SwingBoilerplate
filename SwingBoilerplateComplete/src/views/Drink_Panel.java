@@ -49,7 +49,7 @@ public class Drink_Panel extends JPanel {
      private JPanel createTitlePanel() {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        JLabel lblTitle = new JLabel("Order a Drink", JLabel.CENTER);
+        JLabel lblTitle = new JLabel("Drinks", JLabel.CENTER);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 36));
         titlePanel.add(lblTitle);
 
@@ -123,7 +123,7 @@ public class Drink_Panel extends JPanel {
     }
     
     //register listeners
-    public void rbTypeeListener(ActionListener listener) {
+    public void rbTypeListener(ActionListener listener) {
         for(JRadioButton rb: rbTypes){
             rb.addActionListener(listener);
         }        

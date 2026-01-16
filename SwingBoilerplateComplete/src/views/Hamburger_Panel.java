@@ -1,12 +1,12 @@
 package views;
 
-import controllers.Hamburger_Controller;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -23,20 +23,21 @@ public final class Hamburger_Panel extends JPanel {
     private JCheckBox[] toppingsCbxs;
     private JPanel formPanel;
     private JPanel ordersPlaced;
+    private JLabel lblPrice;
+    private JButton btnSubmit;
+    private JButton btnCancel;
 
-    public Hamburger_Panel(Hamburger_Controller controller) {
+    public Hamburger_Panel() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBackground(Color.WHITE);
-
         add(createTitlePanel());
-        add(createFormPanel(controller));
+        add(createFormPanel());
     }
 
     private JPanel createTitlePanel() {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        JLabel lblTitle = new JLabel("Order a Hamburger", JLabel.CENTER);
+        JLabel lblTitle = new JLabel("Hamburgers", JLabel.CENTER);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 36));
         titlePanel.add(lblTitle);
 
@@ -48,15 +49,16 @@ public final class Hamburger_Panel extends JPanel {
         return titlePanel;
     }
     
-    private JPanel createFormPanel(Hamburger_Controller controller) {
+    private JPanel createFormPanel() {
         formPanel = new JPanel();
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
         formPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         formPanel.setBorder(new EmptyBorder(0, 15, 0, 10));
                 
         formPanel.add(createSubtitle());
-        formPanel.add(createToppingsPanel(controller));
-        formPanel.add(createButtonPanel(controller));
+        formPanel.add(createToppingsPanel());
+        formPanel.add(subtotalPanel());
+        formPanel.add(createButtonPanel());
 
         return formPanel;
     }
@@ -70,15 +72,17 @@ public final class Hamburger_Panel extends JPanel {
         return subTitle;
     }
 
-    private JPanel createToppingsPanel(Hamburger_Controller controller) {
+    private JPanel createToppingsPanel() {
         JPanel toppingsPanel = new JPanel(new GridLayout(3, 3, 10, 10));
-
+        JPanel pnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton btnAll = new JButton("SelectAll");
+        pnl.add(btnAll);
+        toppingsPanel.add(pnl);
         String[] availableToppings = Hamburger.AVAILABLE_TOPPINGS;
         toppingsCbxs = new JCheckBox[availableToppings.length];
 
         for (int i = 0; i < toppingsCbxs.length; i++) {
-            toppingsCbxs[i] = new JCheckBox(availableToppings[i]);
-            controller.toppingListener(toppingsCbxs[i]);
+            toppingsCbxs[i] = new JCheckBox(availableToppings[i]);            
             toppingsPanel.add(toppingsCbxs[i]);
         }
 
@@ -86,18 +90,32 @@ public final class Hamburger_Panel extends JPanel {
         toppingsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
         toppingsPanel.setBorder(new EmptyBorder(0, 0, 20, 0));
         toppingsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+        btnAll.addActionListener((ActionEvent e) -> {
+            for (JCheckBox toppingsCbx : toppingsCbxs) {
+                toppingsCbx.doClick();
+            }
+        });
         return toppingsPanel;
     }
 
-    private JPanel createButtonPanel(Hamburger_Controller controller) {
+    private JPanel subtotalPanel() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        lblPrice = new JLabel();
+        panel.add(lblPrice);
+        panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return panel;
+    }
+
+    public void setPrice(double price){
+        lblPrice.setText(String.format("Subtotal: $%.2f", price));
+    }
+    
+    private JPanel createButtonPanel() {
         JPanel buttonPnl = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        JButton btnSubmit = new JButton("Submit");
-        controller.submitListenter(btnSubmit);
+        btnSubmit = new JButton("Submit");
 
-        JButton btnCancel = new JButton("Cancel");
-        controller.cancelListenter(btnCancel);
+        btnCancel = new JButton("Cancel");
 
         buttonPnl.add(btnSubmit);
         buttonPnl.add(btnCancel);
@@ -174,6 +192,20 @@ public final class Hamburger_Panel extends JPanel {
         //tell the graphics to re-draw the panel with the new information
         ordersPlaced.revalidate();
         ordersPlaced.repaint();
+    }
+
+    public void btnSubmitListener(ActionListener listener) {
+        btnSubmit.addActionListener(listener);
+    }
+
+    public void btnCancelListener(ActionListener listener) {
+        btnCancel.addActionListener(listener);
+    }
+
+    public void cbxToppingListener(ActionListener listener) {
+        for(JCheckBox box: toppingsCbxs){
+            box.addActionListener(listener);
+        }        
     }
 
 }

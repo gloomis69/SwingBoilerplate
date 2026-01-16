@@ -20,7 +20,7 @@ public class Hotdog_Controller {
         hotdogOrders = new ArrayList<>();
         view = new Hotdog_Panel();
         currentOrder = new Hotdog();
-
+        view.setPrice(currentOrder.getPrice());
         // set Listeners
         view.btnSubmitListener(e -> submitListenter());
         view.btnCancelListener(e -> cancelListenter());
@@ -42,6 +42,7 @@ public class Hotdog_Controller {
             } else {
                 currentOrder.removeTopping(topping);
             }
+            view.setPrice(currentOrder.getPrice());
         }
     }
 
@@ -56,6 +57,7 @@ public class Hotdog_Controller {
         currentOrder = new Hotdog();
         view.reset();
         isResetting = false;
+        view.setPrice(currentOrder.getPrice());
     }
 
     public void cancelListenter() {
@@ -63,6 +65,7 @@ public class Hotdog_Controller {
         isResetting = true;
         view.reset();
         isResetting = false;
+        view.setPrice(currentOrder.getPrice());
     }
 
 }

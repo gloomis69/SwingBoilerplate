@@ -15,9 +15,9 @@ public class Drink_Controller {
     public Drink_Controller() {
         currentOrder = new Drink();
         view = new Drink_Panel();
-
+        view.setPrice(currentOrder.getPrice());
         view.rbSizeListener(e -> sizeListener(e));
-        view.rbTypeeListener(e -> typeListener(e));
+        view.rbTypeListener(e -> typeListener(e));
         view.btnCancelListener(e -> cancelListener());
         view.btnSubmitListener(e -> submitListener());
     }

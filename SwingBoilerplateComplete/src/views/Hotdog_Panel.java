@@ -25,6 +25,7 @@ public final class Hotdog_Panel extends JPanel {
     private JPanel ordersPlaced;
     private JButton btnSubmit;
     private JButton btnCancel;
+    private JLabel lblPrice;
 
     public Hotdog_Panel() {
         super();
@@ -38,7 +39,7 @@ public final class Hotdog_Panel extends JPanel {
     private JPanel createTitlePanel() {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        JLabel lblTitle = new JLabel("Order a Hotdog", JLabel.CENTER);
+        JLabel lblTitle = new JLabel("Hotdogs", JLabel.CENTER);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 36));
         titlePanel.add(lblTitle);
 
@@ -49,33 +50,33 @@ public final class Hotdog_Panel extends JPanel {
 
         return titlePanel;
     }
-/*
-    private JPanel createNewOrderPanel() {
-        newOrderPnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        btnStart = new JButton("New Order");
-        newOrderPnl.add(btnStart);
-        newOrderPnl.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        return newOrderPnl;
-    }
-*/
     private JPanel createFormPanel() {
         formPanel = new JPanel();
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
         formPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         formPanel.setBorder(new EmptyBorder(0, 15, 0, 10));
         
-
         formPanel.add(createSubtitle());
         formPanel.add(createToppingsPanel());
+        formPanel.add(subtotalPanel());
         formPanel.add(createButtonPanel());
-        //formPanel.add(Box.createVerticalGlue());
 
         return formPanel;
     }
 
+    private JPanel subtotalPanel() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        lblPrice = new JLabel();
+        panel.add(lblPrice);
+        panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return panel;
+    }
 
+    public void setPrice(double price){
+        lblPrice.setText(String.format("Subtotal: $%.2f", price));
+    }
+    
     private JLabel createSubtitle() {
         JLabel subTitle = new JLabel("Place your order: ", JLabel.LEFT);
         subTitle.setBorder(new EmptyBorder(20, 5, 10, 10));
@@ -113,37 +114,7 @@ public final class Hotdog_Panel extends JPanel {
         buttonPnl.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         return buttonPnl;
-    }
-    
-   /* private JScrollPane createOrdersPlacedPanel() {
-        ordersPlaced = new JPanel();
-        ordersPlaced.setLayout(new BoxLayout(ordersPlaced, BoxLayout.Y_AXIS));
-        ordersPlaced.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // Title
-        JLabel title = new JLabel("Orders Placed");
-        title.setFont(title.getFont().deriveFont(Font.BOLD, 16f));
-        title.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        ordersPlaced.add(title);
-        ordersPlaced.add(Box.createVerticalStrut(10));
-
-        // This glue ensures extra space expands downward
-        ordersPlaced.add(Box.createVerticalGlue());
-
-        // Wrap in scroll pane
-        JScrollPane scrollPane = new JScrollPane(ordersPlaced);
-        scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // Prevent horizontal scrolling
-        scrollPane.setHorizontalScrollBarPolicy(
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
-        );
-
-        return scrollPane;
-    }**/
-
-    
+    }    
 
     public ArrayList<String> getSelectedToppings() {
         ArrayList<String> toppings = new ArrayList<>();

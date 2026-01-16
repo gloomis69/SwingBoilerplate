@@ -5,15 +5,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.FocusAdapter;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Title_Panel extends JPanel{
+public class Title_Panel extends JPanel {
     private static final JTextField nameField = new JTextField(20);;
 
-    public Title_Panel(String title){
+    public Title_Panel(String title) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel lblTitle = new JLabel(title);
@@ -28,7 +29,6 @@ public class Title_Panel extends JPanel{
         JPanel nameRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JLabel nameLabel = new JLabel("Order Name:");
-        
 
         nameRow.add(nameLabel);
         nameRow.add(nameField);
@@ -37,10 +37,15 @@ public class Title_Panel extends JPanel{
         nameRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
         nameRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         nameRow.setBackground(Color.WHITE);
+        
         return nameRow;
     }
 
-    public static String getOrderName(){
+    public static String getOrderName() {
         return nameField.getText();
+    }
+
+    public static void nameListener(FocusAdapter listener){
+        nameField.addFocusListener(listener);
     }
 }

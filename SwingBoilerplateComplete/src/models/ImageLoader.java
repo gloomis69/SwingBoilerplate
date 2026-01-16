@@ -10,28 +10,14 @@ public final class ImageLoader {
         // Utility class — prevent instantiation
     }
 
-    /**
-     * Loads an image, scales it to a thumbnail size, and assigns it to a JLabel.
-     *
-     * @param label the JLabel to receive the image
-     * @param path  classpath or file-system path to the image
-     * @param width thumbnail width
-     * @param height thumbnail height
-     */
-    public static void setThumbnail(
-            JLabel label,
-            String path,
-            int width,
-            int height
-    ) {
+    public static void setThumbnail(JLabel label, String path, int width, int height) {
         ImageIcon icon = loadIcon(path);
         if (icon == null) {
             label.setIcon(null);
             return;
         }
 
-        Image scaled = icon.getImage()
-                .getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image scaled = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
         label.setIcon(new ImageIcon(scaled));
     }
