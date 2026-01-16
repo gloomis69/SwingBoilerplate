@@ -5,14 +5,19 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import models.Food;
+import models.Order;
 
 public class Order_Panel extends JPanel {
     private static final int RECEIPT_WIDTH = 400;
@@ -26,6 +31,7 @@ public class Order_Panel extends JPanel {
     private final JLabel lblTotal = new JLabel("Total: ", JLabel.RIGHT);
     private JLabel title;
     private JPanel orderContainer;
+    private ArrayList<Order> orders = new ArrayList<>();
 
     public Order_Panel() {
         super(new BorderLayout());
@@ -94,7 +100,15 @@ public class Order_Panel extends JPanel {
         return scrollPane;
     }
 
-    public void addOrder(String name, String description, double price, double tax, double total) {
+    public void addOrder(Food food) {        
+        String description = food.toString();
+        double price = food.getPrice();
+        double tax = food.getTax(price);
+        double total = food.getPriceWithTax();
+
+        Order order = new Order(food);
+        orders.add(order);
+
         // update grand totals
         grandSubtotal += price;
         grandtaxes += tax;
@@ -102,14 +116,37 @@ public class Order_Panel extends JPanel {
         displayGrandTotal();
 
         JPanel line = new JPanel();
+        order.setLine(line);
         line.setLayout(new BoxLayout(line, BoxLayout.X_AXIS));
 
+        JButton btnDelete = new JButton("X");
+        btnDelete.setBorder(new EmptyBorder(2, 2, 2, 2));
+        btnDelete.setName(order.getOrderNumber()+"");
+        btnDelete.addActionListener((ActionEvent e) -> {
+            /*JButton btn = (JButton)e.getSource();
+            String id = btn.getName();
+            int orderNum = Integer.parseInt(id);
+            for(Order order: Orders){
+
+            }*/
+           orderContainer.remove(line);
+           grandSubtotal-=price;
+           grandtaxes -= tax;
+           grandtotal -= total;
+           displayGrandTotal();
+           orders.remove(order);
+           orderContainer.revalidate();
+           orderContainer.repaint();
+        });
         JLabel lblDesc = new JLabel("<html>" + description + "</html>");
+        lblDesc.setBorder(new EmptyBorder(0, 20, 0, 20));
         JLabel lblPrice = new JLabel(String.format("$%.2f", price));
 
-        lblDesc.setAlignmentY(Component.TOP_ALIGNMENT);
-        lblPrice.setAlignmentY(Component.TOP_ALIGNMENT);
+        btnDelete.setAlignmentY(Component.CENTER_ALIGNMENT);
+        lblDesc.setAlignmentY(Component.CENTER_ALIGNMENT);
+        lblPrice.setAlignmentY(Component.CENTER_ALIGNMENT);
 
+        line.add(btnDelete);
         line.add(lblDesc);
         line.add(Box.createHorizontalGlue());
         line.add(lblPrice);

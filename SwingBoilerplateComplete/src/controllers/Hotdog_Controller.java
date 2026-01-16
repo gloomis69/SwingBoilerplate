@@ -47,13 +47,8 @@ public class Hotdog_Controller {
     }
 
     public void submitListenter() {
-        String orderName = Title_Panel.getOrderName();
-        hotdogOrders.add(currentOrder);
-        double cost = currentOrder.getPrice();
-        double tax = currentOrder.getTax(cost);
-        double total = currentOrder.getPriceWithTax();
         isResetting = true;
-        SwingBoilerplate.order_panel.addOrder(orderName, currentOrder.toString(), cost, tax, total);
+        SwingBoilerplate.order_panel.addOrder(currentOrder);
         currentOrder = new Hotdog();
         view.reset();
         isResetting = false;

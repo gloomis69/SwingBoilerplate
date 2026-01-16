@@ -5,7 +5,6 @@ import javax.swing.JRadioButton;
 import models.Drink;
 import swingboilerplate.SwingBoilerplate;
 import views.Drink_Panel;
-import views.Title_Panel;
 
 public class Drink_Controller {
     private Drink currentOrder;
@@ -45,12 +44,8 @@ public class Drink_Controller {
     }
 
     public void submitListener() {
-        String orderName = Title_Panel.getOrderName();
-        double cost = currentOrder.getPrice();
-        double tax = currentOrder.getTax(cost);
-        double total = currentOrder.getPriceWithTax();
         isResetting = true;
-        SwingBoilerplate.order_panel.addOrder(orderName, currentOrder.toString(), cost, tax, total);
+        SwingBoilerplate.order_panel.addOrder(currentOrder);
         currentOrder = new Drink();
         view.reset();
         isResetting = false;

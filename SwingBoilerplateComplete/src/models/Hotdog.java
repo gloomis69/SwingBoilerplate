@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-public class Hotdog {
+public class Hotdog extends Food{
     public static final String[] AVAILABLE_TOPPINGS = {"Onions", "Ketchup", "Mustard", "Relish", "Chili", "Cheese"};
     private static final double BASE_COST = 1.99;
     private static final double CHEESE_COST = 0.50;

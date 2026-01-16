@@ -5,7 +5,6 @@ import javax.swing.JRadioButton;
 import models.Dessert;
 import swingboilerplate.SwingBoilerplate;
 import views.Dessert_Panel;
-import views.Title_Panel;
 
 public class Dessert_Controller {
     private final Dessert_Panel view;
@@ -35,12 +34,8 @@ public class Dessert_Controller {
     }
 
     public void submitListener() {
-        String orderName = Title_Panel.getOrderName();
-        double cost = currentOrder.getPrice();
-        double tax = currentOrder.getTax(cost);
-        double total = currentOrder.getPriceWithTax();
         isResetting = true;
-        SwingBoilerplate.order_panel.addOrder(orderName, currentOrder.toString(), cost, tax, total);
+        SwingBoilerplate.order_panel.addOrder(currentOrder);
         currentOrder = new Dessert();
         view.reset();
         isResetting = false;
